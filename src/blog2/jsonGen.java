@@ -43,7 +43,7 @@ public class jsonGen {
 			//System.out.println(articles.get(id));
 			JSONObject jObject = new JSONObject();
 			jObject.put("name", articles.get(id));
-			jObject.put("date", id);
+			jObject.put("date", sdf.format(id));
 			currnetJa.add(jObject);
 		}
 		//System.out.println("------------------------------");
