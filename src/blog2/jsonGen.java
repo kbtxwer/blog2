@@ -20,7 +20,7 @@ public class jsonGen {
 		for(File f:root.listFiles()) {
 			
 			if(f.isDirectory()) {
-				if(f.getName().equals("src")||f.getName().equals("bin")||f.getName().equals(".git")) {
+				if(f.getName().contains("_files")||f.getName().equals("src")||f.getName().equals("bin")||f.getName().equals(".git")) {
 					continue;
 				}
 				genJson(f);
