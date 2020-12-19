@@ -2,6 +2,7 @@ package blog2;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.TreeSet;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import sun.awt.CharsetString;
 
 public class jsonGen {
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -50,7 +53,7 @@ public class jsonGen {
 		JSONObject cjo = new JSONObject();
 		cjo.put("article", currnetJa);
 		FileOutputStream fos = new FileOutputStream(new File(root.getAbsolutePath() + "/json_utf8"));
-		fos.write(cjo.toString().getBytes());
+		fos.write(cjo.toString().getBytes("utf-8"));
 		fos.close();
 	}
 	
