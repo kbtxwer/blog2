@@ -20,19 +20,19 @@
                 pagetime: {}
             };
 
-            var testRdmUrl = '//res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/pic/common/avatar_default46e3e2.svg';
+            var testRdmUrl = '//res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/pic/common/avatar_default52ab86.svg';
             
             if (testRdmUrl.indexOf('mp.weixin.qq.com') > 0) {
                 window.__allowLoadResFromMp = true; 
                 window.__loadAllResFromMp = true; 
 
                 
-                document.documentElement.style.boxShadow = 'inset 0 0 15px green';        
+                document.documentElement.style.boxShadow = 'inset 0 0 15px green';
             }
 
             window.logs.pagetime['html_begin'] = (+new Date());
             window.LANG= "zh_CN"; 
-    
+
         </script>
         <title></title>
         <!---请求录制 by gabyliu-->
@@ -64,14 +64,14 @@ html,body{height:100%;}
 <link rel="apple-touch-icon-precomposed" href="//res.wx.qq.com/a/wx_fed/assets/res/OTE0YTAw.png">
 <script nonce="" type="text/javascript">
     String.prototype.html = function(encode) {
-        var replace =["&#39;", "'", "&quot;", '"', "&nbsp;", " ", "&gt;", ">", "&lt;", "<", "&yen;", "¥", "&amp;", "&"];
+        var replace =["&#39;", "'", "&quot;", '"', "&nbsp;", " ", "&gt;", ">", "&lt;", "<", "&yen;", "¥", "&", "&"];
         
 		
 		
 		
 		
         
-        var replaceReverse = ["&", "&amp;", "¥", "&yen;", "<", "&lt;", ">", "&gt;", " ", "&nbsp;", '"', "&quot;", "'", "&#39;"];
+        var replaceReverse = ["&", "&", "¥", "&yen;", "<", "&lt;", ">", "&gt;", " ", "&nbsp;", '"', "&quot;", "'", "&#39;"];
 	    var target;
 	    if (encode) {
 	    	target = replaceReverse;
@@ -133,7 +133,7 @@ html,body{height:100%;}
         <h2 class='weui-msg__title title'>
                         此内容因违规无法查看                    </h2>
         <div class="weui-msg__desc">
-                                            <p class="tips">由用户投诉并经平台审核，此内容涉嫌违反相关法律法规和政策，查看<a href="http://mp.weixin.qq.com/mp/opshowpage?action=oplaw&amp;id=32&amp;t=operation/faq_index#wechat_redirect">对应规则</a></p>
+                                            <p class="tips">由用户投诉并经平台审核，此内容涉嫌违反相关法律法规和政策，查看<a href="http://mp.weixin.qq.com/mp/opshowpage?action=oplaw&id=32&t=operation/faq_index#wechat_redirect">对应规则</a></p>
                                         </div>
     </div>
     <div class="weui-msg__extra-area">
@@ -152,114 +152,10 @@ var PAGE_MID='mmbizwap:appmsg/del.html';
         <script nonce="" type="text/javascript">
 window.logs.pagetime.page_begin = Date.now();
 </script>
-        <script nonce="" type="text/javascript">
-  (function () {
-    
-    var ajaxWhiteList = {
-      1: { 
-        reg: /^https?:\/\/mp\.weixin\.qq\.com\/mp\/appmsg_like/,
-        times: 0
-      },
-      2: { 
-        reg: /^https?:\/\/mp\.weixin\.qq\.com\/mp\/appmsg_comment((\?|&)[^=]*?=[^&]*?)*?(\?|&)action=likecomment/,
-        times: 0
-      },
-      3: { 
-        reg: /^https?:\/\/mp\.weixin\.qq\.com\/mp\/appmsg_comment((\?|&)[^=]*?=[^&]*?)*?(\?|&)action=addcomment/,
-        times: 0
-      },
-      4: { 
-        reg: /^https?:\/\/mp\.weixin\.qq\.com\/mp\/authorreward/,
-        times: 0
-      }
-      
-      
-      
-      
-    };
-
-    
-    if (!performance || !performance.getEntries) return;
-
-    
-    var hasReported = false;
-
-    
-    var reportResLoadTime = function () {
-      
-      if (hasReported) return;
-
-      
-      var notSupport = false;
-
-      
-      var ajaxEntries = [];
-
-      
-      var entries = performance.getEntries().map(function (entry) {
-        if (typeof entry !== 'object') {
-          notSupport = true;
-        } else if (entry.entryType === undefined) {
-          notSupport = true;
-        } else if (
-          entry.entryType !== 'navigation' &&
-          entry.entryType !== 'resource'
-        ) {
-          
-          return null;
-        } else if (entry.initiatorType === undefined) {
-          notSupport = true;
-        } else if (entry.initiatorType === 'xmlhttprequest') {
-          
-          if (entry.name === undefined || entry.duration === undefined) {
-            notSupport = true;
-          } else {
-            for (var scene in ajaxWhiteList) {
-              if (Object.prototype.hasOwnProperty.call(ajaxWhiteList, scene)) {
-                var ajaxItem = ajaxWhiteList[scene];
-                if (ajaxItem.times < 10 && ajaxItem.reg.test(entry.name)) {
-                  ajaxEntries.push({
-                    scene: scene,
-                    protocol: entry.nextHopProtocol,
-                    is_https: isHttps(entry),
-                    time: entry.duration
-                  });
-                  ajaxItem.times++;
-                }
-              }
-            }
-          }
-          return null;
-        }
-        return entry;
-      });
-
-      
-      if (notSupport || ajaxEntries.length === 0) return;
-
-      
-      var data = {
-        stat_list: ajaxEntries
-      };
-      var img = new Image();
-      img.src = 'https://mp.weixin.qq.com/mp/timereport?data=' + JSON.stringify(data);
-      hasReported = true;
-    };
-
-    
-    window.addEventListener('beforeunload', reportResLoadTime, false);
-    window.addEventListener('unload', reportResLoadTime, false);
-
-    function isHttps(entry) {
-      if (/^https/.test(entry.name)) return 1;
-      else return 0;
-    }
-  })();
-</script>
         <script nonce="">
     var __DEBUGINFO = {
-        debug_js : "//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/debug/console42f400.js",
-        safe_js : "//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/safe/moonsafe42f400.js",
+        debug_js : "//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/debug/console52ab87.js",
+        safe_js : "//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/safe/moonsafe52ab87.js",
         res_list: []
     };
 </script>
@@ -300,9 +196,9 @@ window.logs.pagetime.page_begin = Date.now();
 		|| location.href.indexOf('vconsole=1') > -1
 	) {
 		window.vConsolePlugins = [];
-		_addVConsole('//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/vconsole/3.2.2/vconsole.min440203.js', function() {
+		_addVConsole('//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/vconsole/3.2.2/vconsole.min52ab86.js', function() {
 			
-			_addVConsole('//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/vconsole/plugin/vconsole-mpopt/1.0.1/vconsole-mpopt42f400.js', _loadVConsolePlugin);
+			_addVConsole('//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/vconsole/plugin/vconsole-mpopt/1.0.1/vconsole-mpopt52ab86.js', _loadVConsolePlugin);
 		});
 	}
 
@@ -329,7 +225,7 @@ window.logs.pagetime.page_begin = Date.now();
 })();
 </script>
         
-        <script>window.__moon_host = 'res.wx.qq.com';window.moon_map = {"biz_wap/utils/log.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/log42f400.js","biz_common/utils/respTypes.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/respTypes42f400.js","biz_common/utils/url/parse.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/url/parse440451.js","biz_common/utils/string/html.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/string/html42f400.js","biz_common/tmpl.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/tmpl4eefa0.js","biz_wap/jsapi/leaveReport.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/jsapi/leaveReport4ffe4e.js","biz_common/utils/comm_report.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/comm_report4f37c5.js","biz_wap/utils/ajax_wx.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/ajax_wx518de8.js","biz_wap/utils/ajax.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/ajax4a2b2d.js","complain/utils/const.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/complain/utils/const502418.js","complain/utils/utils.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/complain/utils/utils516b44.js","common/color/dark.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/color/dark4e964f.js","common/color/light.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/color/light504659.js","biz_wap/utils/mmversion.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/mmversion51dc89.js","common/comm_report.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/comm_report4f693c.js","complain/utils/dom.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/complain/utils/dom52253e.js","biz_common/dom/event.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/dom/event4b3caf.js","biz_common/moment.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/moment42f400.js","common/color/background_color.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/color/background_color4e964f.js","biz_wap/jsapi/core.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/jsapi/core512e68.js","appmsg/del.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/appmsg/del5252a5.js"};</script><script type="text/javascript">window.__wxgspeeds={}; window.__wxgspeeds.moonloadtime=+new Date()</script><script  type="text/javascript" src="//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/moon513749.js"></script>
+        <script>window.__moon_host = 'res.wx.qq.com';window.moon_map = {"biz_wap/utils/log.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/log52ab87.js","biz_common/utils/respTypes.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/respTypes52ab87.js","biz_common/utils/url/parse.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/url/parse52ab87.js","biz_common/utils/string/html.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/string/html52ab87.js","biz_common/tmpl.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/tmpl52ab87.js","biz_wap/jsapi/leaveReport.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/jsapi/leaveReport52ab87.js","biz_common/utils/comm_report.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/utils/comm_report52ab87.js","biz_wap/utils/ajax_wx.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/ajax_wx52ab87.js","biz_wap/utils/ajax.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/ajax52ab87.js","complain/utils/const.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/complain/utils/const52ab87.js","complain/utils/utils.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/complain/utils/utils52ab87.js","common/color/dark.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/color/dark52ab87.js","common/color/light.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/color/light52ab87.js","biz_wap/utils/mmversion.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/utils/mmversion52ab87.js","common/comm_report.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/comm_report52ab87.js","complain/utils/dom.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/complain/utils/dom52ab87.js","biz_common/dom/event.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/dom/event52ab87.js","biz_common/moment.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/moment52ab87.js","common/color/background_color.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/common/color/background_color52ab87.js","biz_wap/jsapi/core.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/jsapi/core52ab87.js","appmsg/del.js":"//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/appmsg/del52ab87.js"};</script><script type="text/javascript">window.__wxgspeeds={}; window.__wxgspeeds.moonloadtime=+new Date()</script><script  type="text/javascript" src="//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_wap/moon52ab87.js"></script>
 <script type="text/javascript">
     window.cgiData = {
         del_reason_id: '20001', 
@@ -341,7 +237,7 @@ window.logs.pagetime.page_begin = Date.now();
 </script>
 
     </body>
-    
-    <script nonce="" type="text/javascript" src="//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/promise514799.js"></script>
+
+    <script nonce="" type="text/javascript" src="//res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/biz_common/promise52ab87.js"></script>
 </html>
 
