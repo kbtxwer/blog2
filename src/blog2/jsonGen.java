@@ -30,7 +30,12 @@ public class jsonGen {
 			}else {
 				//应当只对文章进行索引
 				if(f.getName().contains(".html")&&!f.getName().contains("json")&&!f.getName().contains("index")) {
-					articles.put(f.lastModified(), f.getName());
+					if(articles.get(f.lastModified())==null) {
+						articles.put(f.lastModified(), f.getName());
+					}else {
+						//让修改日期小幅摆动，避免相同修改时间的文件无法同时存在
+						articles.put(f.lastModified() + (int)(1000*(Math.random()-0.5)), f.getName());
+					}
 				}
 			}
 			
