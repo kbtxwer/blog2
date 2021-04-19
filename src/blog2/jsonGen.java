@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.Date;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -15,11 +15,11 @@ import java.util.TreeSet;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import jdk.internal.jline.internal.InputStreamReader;
-import sun.awt.CharsetString;
 
 public class jsonGen {
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+	
 	public static void genJson(File root) throws Exception{
 		JSONArray currnetJa = new JSONArray();
 		Map<Long, String> articles = new HashMap<Long, String>();
@@ -68,63 +68,66 @@ public class jsonGen {
 	
 	
 	public static void resumeDate(File root) throws Exception {
-		for(File f:root.listFiles()) {
-			if(f.isDirectory()) {
-				if(f.getName().contains("_files")||f.getName().equals("src")||f.getName().equals("bin")||f.getName().equals(".git")) {
-					continue;
-				}
-				resumeDate(f);
-			}else {
-				//恢复所有文章的修改日期
-				//先找到索引文件
-				String root_path = root.getAbsolutePath();
-				File indexFile = new File(root_path + "/json_utf8");
-				//如果不存在，直接返回
-				if(!indexFile.exists()) return;
-				//读取文件并转换为Json数组
-				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(indexFile)));
-				StringBuilder sb = new StringBuilder();
-				String str;
-				while((str = br.readLine())!=null) {
-					sb.append(str);
-				}
-				JSONArray articles = JSONObject.parseObject(sb.toString()).getJSONArray("article");
-				//遍历索引
-				for(int i=0;i<articles.size();i++) {
-					JSONObject article = articles.getJSONObject(i);
-					//找到需要修改时间的文件
-					File current_article = new File(root_path + "/" + article.getString("name"));
-					//修改时间
-					if(current_article.exists()) {
-						current_article.setLastModified(sdf.parse(article.getString("date")).getTime());
-					}
-				}
+		//恢复所有文章的修改日期
+		//先找到索引文件
+		System.out.println("Resume for: " + root + " ...");
+		String root_path = root.getAbsolutePath();
+		File indexFile = new File(root_path + "/json_utf8");
+		//如果不存在，直接返回
+		if(!indexFile.exists()) return;
+		//读取文件并转换为Json数组
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(indexFile)));
+		StringBuilder sb = new StringBuilder();
+		String str;
+		while((str = br.readLine())!=null) {
+			sb.append(str);
+		}
+		br.close();
+		JSONArray articles = JSONObject.parseObject(sb.toString()).getJSONArray("article");
+		System.out.println(root_path + ": ");
+		System.out.println(articles);
+		//遍历索引
+		for(int i=0;i<articles.size();i++) {
+			JSONObject article = articles.getJSONObject(i);
+			//找到需要修改时间的文件
+			File current_article = new File(root_path + "/" + article.getString("name"));
+			//修改时间
+			if(current_article.exists()) {
+				current_article.setLastModified(sdf.parse(article.getString("date")).getTime());
 			}
+		}
+		//递归处理子目录
+		for(File f:root.listFiles()) {
+			//只处理目录
+			if(!f.isDirectory()) continue;
+			//忽略特殊路径
+			if(f.getName().contains("_files")||f.getName().equals("src")||f.getName().equals("bin")||f.getName().equals(".git")) continue;
+			resumeDate(f);
 		}
 	}
 	
 	public static void main(String[] args) throws Exception {
 		// TODO 自动生成的方法存根
 		File root = new File("");
-		
+		root = new File(root.getAbsolutePath());
 		if(args.length>0 && args[0].equals("resume")) {
-			root = new File(root.getAbsolutePath());
-			resumeDate(root);
-			
+			resumeDate(root);			
 		}else {
 			File indexFile = new File(root.getAbsolutePath() + "/json_utf8");
-			File gitRepoDir= new File(root.getAbsolutePath() + "/.git");
+			File gitIgnore= new File(root.getAbsolutePath() + "/.gitignore");
 			//如果git仓库不存在，阻止运行
-			if(!gitRepoDir.exists()) {
-				System.out.println("git 仓库未找到，为保证索引文件不被破坏，此命令无法执行！");
+			if(!gitIgnore.exists()) {
+				System.out.println("gitignore 文件未找到，为保证索引文件不被破坏，此命令无法执行！");
 				System.exit(-1);
 			}
-			//如果索引文件和 .git 仓库的修改日期一致，说明仓库是刚刚克隆下来的，不能执行生成命令
-			if(indexFile.exists()&&indexFile.lastModified()==gitRepoDir.lastModified()) {
-				System.out.println("仓库可能是刚刚克隆下来的，请先执行 resume命令恢复文件的修改日期");
-				System.exit(-1);
+			//如果索引文件和 .git 仓库的修改日期相差小于1小时，说明仓库是刚刚克隆下来的，不能执行生成命令
+			//System.out.println(Math.abs(indexFile.lastModified()-gitIgnore.lastModified()));
+			if(indexFile.exists()&&Math.abs(indexFile.lastModified()-gitIgnore.lastModified())<3600_000) {
+				System.out.println("仓库可能是刚刚克隆下来的，转为执行 resume命令恢复文件的修改日期，如果要重建索引，请在仓库克隆完成1小时后执行 touch json_utf8 命令");
+				resumeDate(root);
+				System.exit(0);
 			}
-			root = new File(root.getAbsolutePath());
+			System.out.println("正在更新索引...");
 			genJson(root);
 		}
 //		if(root.isDirectory()) {
